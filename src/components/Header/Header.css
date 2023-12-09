@@ -1,0 +1,11 @@
+.HeaderContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-top: 24px; /*to test*/
+  margin-bottom: 16px;
+}
+
+.logo {
+  width: 10rem;
+}

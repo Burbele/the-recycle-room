@@ -1,0 +1,83 @@
+:root {
+  --skarsnik-green: rgba(92, 146, 114, 1);
+  --eggplant: rgba(43, 36, 42, 1);
+  --oatmeal: rgba(254, 253, 250, 1);
+  --heading-font: "Merriweather Sans", sans-serif;
+  --body-font: "Lato", sans-serif;
+  --heading-size: 1.5rem;
+  --subheading-size: 1.25rem;
+  --body-text-size: 0.875rem;
+  --body-text-small-size: 0.75rem;
+  --box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+  --font-weight-bold: 700;
+  --font-weight-regular: 500;
+}
+
+body,
+html {
+  background-color: var(--oatmeal);
+  color: var(--eggplant);
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- Typography ---------- */
+h1 {
+  font-family: var(--heading-font);
+  font-size: var(--heading-size);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-family: var(--heading-font);
+  font-size: var(--subheading-size);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  font-family: var(--body-font);
+  font-size: var(--body-text-size);
+  font-weight: var(--font-weight-regular);
+  margin: 0;
+  padding: 0;
+}
+
+.bold {
+  font-weight: var(--font-weight-bold);
+}
+
+.page {
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 5rem;
+}
+
+/* ---------- Navigation ---------- */
+nav {
+  background-color: var(--skarsnik-green);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  border-radius: 8px 8px 0 0;
+}
+
+nav a {
+  display: inline-block;
+  color: var(--oatmeal);
+  text-align: center;
+  padding: 20px 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+nav a.active {
+  background-color: var(--oatmeal);
+  color: var(--skarsnik-green);
+}
