@@ -1,9 +1,14 @@
+import Header from "../../components/Header/Header";
+
 function InformationPage() {
   return (
-    <section>
-      <h1>Recycling Information</h1>
-      <p>This is information page</p>
-    </section>
+    <>
+      <div className="page">
+        <Header />
+        <h1>Your guide</h1>
+        <h2>Make sorting easy</h2>
+      </div>
+    </>
   );
 }
 
