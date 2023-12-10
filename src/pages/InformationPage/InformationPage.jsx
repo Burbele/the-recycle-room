@@ -1,3 +1,4 @@
+import Accordion from "../../components/Accordion/Accordion";
 import Header from "../../components/Header/Header";
 
 function InformationPage() {
@@ -7,6 +8,7 @@ function InformationPage() {
         <Header />
         <h1>Your guide</h1>
         <h2>Make sorting easy</h2>
+        <Accordion />
       </div>
     </>
   );

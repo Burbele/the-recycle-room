@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  margin-top: 24px; /*to test*/
-  margin-bottom: 16px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .logo {
