@@ -6,55 +6,40 @@ import { FaSearch } from "react-icons/fa";
 function SearchBar() {
   const [value, setValue] = useState("");
   const [result, setResult] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null); // Track the selected item
+  const [selectedItem, setSelectedItem] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
-
-  useEffect(() => {
-    let timeoutId;
-
-    if (value.length > 0) {
-      timeoutId = setTimeout(() => {
-        setResult([]);
-        setShowMessage(true);
-      }, 2000); // 2000 milliseconds (2 seconds)
-    } else {
-      setResult([]);
-      setShowMessage(false);
-    }
-
-    return () => clearTimeout(timeoutId); // Clear the timeout on component unmount or when the value changes
-  }, [value]);
 
   useEffect(() => {
     if (value.length > 0) {
       fetch("https://recycle-item-app-default-rtdb.europe-west1.firebasedatabase.app/items.json")
         .then((response) => response.json())
         .then((responseData) => {
-          setResult([]);
           let searchQuery = value.toLocaleLowerCase();
+          const newResult = [];
           for (const key in responseData) {
             let item = responseData[key].name.toLocaleLowerCase();
-            if (item.slice(0, searchQuery.length).indexOf(searchQuery) !== -1) {
-              setResult((prevResult) => {
-                return [...prevResult, responseData[key]];
-              });
+            if (item.includes(searchQuery)) {
+              newResult.push(responseData[key]);
             }
           }
+
+          setResult(newResult);
+          setShowMessage(newResult.length === 0); // Show the message only if there are no results
         })
         .catch((error) => {
           console.log(error);
         });
     } else {
       setResult([]);
+      setShowMessage(false);
     }
   }, [value]);
 
-  // Function to handle item selection
   const handleItemClick = (selectedItem) => {
     setSelectedItem(selectedItem);
-    setValue(""); // Clear the search input
-    setResult([]); // Clear the search results
-    setShowMessage(false); // Hide the message on item selection
+    setValue("");
+    setResult([]);
+    setShowMessage(false);
   };
 
   return (
@@ -75,8 +60,7 @@ function SearchBar() {
           <div
             className="search-result"
             key={index}
-            onClick={() => handleItemClick(item)} // Handle item click
-          >
+            onClick={() => handleItemClick(item)}>
             {item.name}
           </div>
         ))}
