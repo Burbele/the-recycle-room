@@ -3,6 +3,7 @@ import Header from "../../components/Header/Header";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import RecyclingImage from "../../assets/recycling-image.png";
 import "./SearchPage.css";
+import ModalPopup from "../../components/Modal/ModalPopup";
 
 function SearchPage() {
   return (
@@ -19,6 +20,7 @@ function SearchPage() {
           </div>
         </div>
         <SearchBar />
+        <ModalPopup />
       </div>
     </>
   );
