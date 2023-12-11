@@ -7,6 +7,23 @@ function SearchBar() {
   const [value, setValue] = useState("");
   const [result, setResult] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null); // Track the selected item
+  const [showMessage, setShowMessage] = useState(false);
+
+  useEffect(() => {
+    let timeoutId;
+
+    if (value.length > 0) {
+      timeoutId = setTimeout(() => {
+        setResult([]);
+        setShowMessage(true);
+      }, 2000); // 2000 milliseconds (2 seconds)
+    } else {
+      setResult([]);
+      setShowMessage(false);
+    }
+
+    return () => clearTimeout(timeoutId); // Clear the timeout on component unmount or when the value changes
+  }, [value]);
 
   useEffect(() => {
     if (value.length > 0) {
@@ -37,6 +54,7 @@ function SearchBar() {
     setSelectedItem(selectedItem);
     setValue(""); // Clear the search input
     setResult([]); // Clear the search results
+    setShowMessage(false); // Hide the message on item selection
   };
 
   return (
@@ -52,6 +70,7 @@ function SearchBar() {
         </div>
       </div>
       <div className="results-list">
+        {showMessage && <div className="no-results-message">Cannot find an item? Click help!</div>}
         {result.map((item, index) => (
           <div
             className="search-result"

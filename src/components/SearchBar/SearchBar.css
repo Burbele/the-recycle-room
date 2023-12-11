@@ -44,3 +44,7 @@ input:focus {
 .search-result {
   padding: 10px 20px;
 }
+
+.no-results-message {
+  padding: 10px 20px;
+}
