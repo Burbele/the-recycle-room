@@ -43,6 +43,13 @@ const ModalPopup = () => {
 
   const handleSubmit = async () => {
     try {
+      // Validate input fields
+      if (!formData.name || !formData.email || !formData.itemName) {
+        // Show an error message or handle the validation as needed
+        console.error("Please fill in all required fields");
+        return;
+      }
+
       // Use the Email.js service ID, template ID, and user ID
       const emailjsParams = {
         service_id: "service_e7n4xkn",
@@ -59,7 +66,7 @@ const ModalPopup = () => {
       // Send email using Email.js
       const response = await emailjs.send(
         "default_service",
-        "template_o2rtvgf", // Use the correct template name here
+        "template_o2rtvgf",
         emailjsParams.template_params,
         emailjsParams.user_id
       );
@@ -105,7 +112,7 @@ const ModalPopup = () => {
           <IconButton
             onClick={closePopup}
             style={{ float: "right" }}>
-            <CloseIcon></CloseIcon>
+            <CloseIcon />
           </IconButton>
         </DialogTitle>
         <DialogContent>
@@ -149,8 +156,9 @@ const ModalPopup = () => {
             />
             <Button
               variant="contained"
-              color="success"
-              onClick={handleSubmit}>
+              style={{ backgroundColor: "rgba(92, 146, 114, 1)" }}
+              onClick={handleSubmit}
+              disabled={!formData.name || !formData.email || !formData.itemName}>
               Submit
             </Button>
           </Stack>
