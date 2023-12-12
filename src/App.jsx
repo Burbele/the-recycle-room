@@ -8,20 +8,23 @@ function App() {
   return (
     <>
       <Navigation />
-      <Routes>
-        <Route
-          path="/"
-          element={<SearchPage />}
-        />
-        <Route
-          path="/recyclinginformation"
-          element={<InformationPage />}
-        />
-        <Route
-          path="*"
-          element={<Navigate to="/" />}
-        />
-      </Routes>
+      <main>
+        <Routes>
+          <Route
+            path="/"
+            element={<SearchPage />}
+          />
+          <Route
+            path="/recyclinginformation"
+            element={<InformationPage />}
+          />
+
+          <Route
+            path="*"
+            element={<Navigate to="/" />}
+          />
+        </Routes>
+      </main>
     </>
   );
 }
