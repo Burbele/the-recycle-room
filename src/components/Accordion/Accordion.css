@@ -21,6 +21,12 @@
 
 .title-container p.active-title {
   font-weight: var(--font-weight-bold);
+  color: rgba(43, 36, 42, 1);
+}
+
+.title-container p {
+  -webkit-text-fill-color: rgba(43, 36, 42, 1); /* Safari */
+  color: rgba(43, 36, 42, 1); /* Standard */
 }
 
 .information-container.active {
@@ -30,9 +36,11 @@
 .wrapper .arrow {
   font-size: 2rem;
   transition: 0.5s ease-in-out;
+  color: rgba(43, 36, 42, 1);
 }
 .arrow.active {
   rotate: 180deg;
+  color: rgba(43, 36, 42, 1);
 }
 .wrapper .examples-container {
   padding: 0;
