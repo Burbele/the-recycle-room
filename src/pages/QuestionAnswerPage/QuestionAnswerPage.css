@@ -1,0 +1,8 @@
+.ask {
+  margin-top: 1rem;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background: var(--skarsnik-green);
+  color: var(--oatmeal);
+}

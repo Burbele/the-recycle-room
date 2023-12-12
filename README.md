@@ -14,3 +14,5 @@ npm install @mui/material @emotion/react @emotion/styled
 npm i @mui/icons-material
 
 npm install react-toastify
+
+npm install uuid

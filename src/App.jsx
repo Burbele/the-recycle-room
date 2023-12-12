@@ -3,6 +3,7 @@ import "./App.css";
 import Navigation from "./components/Navigation/Navigation";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import InformationPage from "./pages/InformationPage/InformationPage";
+import QuestionAnswerPage from "./pages/QuestionAnswerPage/QuestionAnswerPage";
 
 function App() {
   return (
@@ -18,7 +19,10 @@ function App() {
             path="/recyclinginformation"
             element={<InformationPage />}
           />
-
+          <Route
+            path="/questionanswer"
+            element={<QuestionAnswerPage />}
+          />
           <Route
             path="*"
             element={<Navigate to="/" />}

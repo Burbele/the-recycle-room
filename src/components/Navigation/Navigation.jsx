@@ -18,6 +18,12 @@ export default function Navigation() {
         activeClassName="active-link">
         Information
       </NavLink>
+      {/* NavLink for navigating to the Question & Answer page */}
+      <NavLink
+        to="/questionanswer"
+        activeClassName="active-link">
+        Q&A
+      </NavLink>
     </nav>
   );
 }
