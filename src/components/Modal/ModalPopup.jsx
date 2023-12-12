@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -10,15 +10,13 @@ import {
   FormControlLabel,
   Checkbox,
   IconButton,
-  Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { MdInfoOutline } from "react-icons/md";
 import emailjs from "emailjs-com";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const ModalPopup = () => {
+const ModalPopup = React.forwardRef((props, ref) => {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -90,29 +88,13 @@ const ModalPopup = () => {
     }
   };
 
+  // Assign the openPopup function to the ref
+  React.useImperativeHandle(ref, () => ({
+    openPopup,
+  }));
+
   return (
     <>
-      <IconButton
-        onClick={openPopup}
-        aria-label="info">
-        <Stack
-          alignItems="flex-start"
-          position="fixed"
-          top="3rem"
-          right="1.5rem">
-          <MdInfoOutline
-            fontSize="2rem"
-            style={{ color: "rgba(43, 36, 42, 1)" }}
-          />
-          <Typography
-            variant="subtitle1"
-            color="textSecondary"
-            style={{ color: "rgba(43, 36, 42, 1)" }}>
-            Help
-          </Typography>
-        </Stack>
-      </IconButton>
-
       <Dialog
         open={open}
         onClose={closePopup}
@@ -183,6 +165,8 @@ const ModalPopup = () => {
       />
     </>
   );
-};
+});
+
+ModalPopup.displayName = "ModalPopup";
 
 export default ModalPopup;

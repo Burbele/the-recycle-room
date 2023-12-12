@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./SearchBar.css";
 import ItemDetails from "./../ItemDetails/ItemDetails";
 import { FaSearch } from "react-icons/fa";
+import ModalPopup from "../../components/Modal/ModalPopup";
 
 function SearchBar() {
   const [value, setValue] = useState("");
   const [result, setResult] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
+  const modalPopupRef = useRef();
 
   useEffect(() => {
     if (value.length > 0) {
@@ -42,6 +44,10 @@ function SearchBar() {
     setShowMessage(false);
   };
 
+  const handleHelpClick = () => {
+    modalPopupRef.current.openPopup();
+  };
+
   return (
     <>
       <div className="search-bar-container">
@@ -55,7 +61,13 @@ function SearchBar() {
         </div>
       </div>
       <div className="results-list">
-        {showMessage && <div className="no-results-message">Cannot find an item? Click help!</div>}
+        {showMessage && (
+          <div
+            className="no-results-message"
+            onClick={handleHelpClick}>
+            Cannot find an item? Click here!
+          </div>
+        )}
         {result.map((item, index) => (
           <div
             className="search-result"
@@ -66,6 +78,7 @@ function SearchBar() {
         ))}
       </div>
       <ItemDetails selectedItem={selectedItem} />
+      <ModalPopup ref={modalPopupRef} />
     </>
   );
 }

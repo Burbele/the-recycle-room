@@ -47,4 +47,5 @@ input:focus {
 
 .no-results-message {
   padding: 10px 20px;
+  font-weight: var(--font-weight-bold);
 }
