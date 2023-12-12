@@ -15,6 +15,8 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { MdInfoOutline } from "react-icons/md";
 import emailjs from "emailjs-com";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ModalPopup = () => {
   const [open, setOpen] = useState(false);
@@ -45,8 +47,8 @@ const ModalPopup = () => {
     try {
       // Validate input fields
       if (!formData.name || !formData.email || !formData.itemName) {
-        // Show an error message or handle the validation as needed
-        console.error("Please fill in all required fields");
+        // Show an error toast
+        toast.error("Please fill in all required fields");
         return;
       }
 
@@ -72,11 +74,13 @@ const ModalPopup = () => {
       );
 
       console.log(response);
-      // You can add additional logic here, such as showing a success message
+      // Show a success toast
+      toast.success("Message sent!");
       closePopup();
     } catch (error) {
       console.error("Error sending email:", error);
-      // You can add additional logic here, such as showing an error message
+      // Show an error toast
+      toast.error("Error sending email");
     }
   };
 
@@ -164,6 +168,13 @@ const ModalPopup = () => {
           </Stack>
         </DialogContent>
       </Dialog>
+
+      {/* Toast container */}
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+      />
     </>
   );
 };
