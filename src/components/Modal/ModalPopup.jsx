@@ -16,7 +16,9 @@ import emailjs from "emailjs-com";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// ModalPopup component with forwardRef to expose openPopup function
 const ModalPopup = React.forwardRef((props, ref) => {
+  // State to manage the dialog open/close and form data
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -25,14 +27,17 @@ const ModalPopup = React.forwardRef((props, ref) => {
     notify: false,
   });
 
+  // Function to open the dialog
   const openPopup = () => {
     setOpen(true);
   };
 
+  // Function to close the dialog
   const closePopup = () => {
     setOpen(false);
   };
 
+  // Function to handle input changes in the form
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
@@ -41,6 +46,7 @@ const ModalPopup = React.forwardRef((props, ref) => {
     }));
   };
 
+  // Function to handle form submission
   const handleSubmit = async () => {
     try {
       // Validate input fields
@@ -95,12 +101,13 @@ const ModalPopup = React.forwardRef((props, ref) => {
 
   return (
     <>
+      {/* Dialog for the modal */}
       <Dialog
         open={open}
         onClose={closePopup}
         fullWidth>
         <DialogTitle>
-          Something missing?{" "}
+          Something missing? {/* Close button */}
           <IconButton
             onClick={closePopup}
             style={{ float: "right" }}>
@@ -109,11 +116,13 @@ const ModalPopup = React.forwardRef((props, ref) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
+            {/* Dialog content text */}
             You cannot find an item? Please let us know what other items you have a question about.
           </DialogContentText>
           <Stack
             spacing={2}
             marginTop={2}>
+            {/* Form fields */}
             <TextField
               variant="outlined"
               label="Your name (optional)"
@@ -146,6 +155,7 @@ const ModalPopup = React.forwardRef((props, ref) => {
               }
               label="Inform me when the item is added (your email is required)"
             />
+            {/* Submit button */}
             <Button
               variant="contained"
               style={{ backgroundColor: "rgba(92, 146, 114, 1)" }}
@@ -167,6 +177,7 @@ const ModalPopup = React.forwardRef((props, ref) => {
   );
 });
 
+// Assigning a display name to the component for debugging and documentation
 ModalPopup.displayName = "ModalPopup";
 
 export default ModalPopup;
