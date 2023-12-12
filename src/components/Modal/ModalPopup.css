@@ -1,0 +1,6 @@
+.fixed-position {
+  position: fixed;
+  top: 3rem;
+  right: 1.5rem;
+  z-index: 1000;
+}

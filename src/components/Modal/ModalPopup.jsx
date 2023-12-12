@@ -52,6 +52,12 @@ const ModalPopup = () => {
         return;
       }
 
+      if (formData.notify && !formData.email) {
+        // Show an error toast if notify is checked and email is empty
+        toast.error("Email is required for notification");
+        return;
+      }
+
       // Use the Email.js service ID, template ID, and user ID
       const emailjsParams = {
         service_id: "service_e7n4xkn",
@@ -162,7 +168,7 @@ const ModalPopup = () => {
               variant="contained"
               style={{ backgroundColor: "rgba(92, 146, 114, 1)" }}
               onClick={handleSubmit}
-              disabled={!formData.itemName}>
+              disabled={!formData.itemName || (formData.notify && !formData.email)}>
               Submit
             </Button>
           </Stack>
