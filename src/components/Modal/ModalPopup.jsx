@@ -46,9 +46,9 @@ const ModalPopup = () => {
   const handleSubmit = async () => {
     try {
       // Validate input fields
-      if (!formData.name || !formData.email || !formData.itemName) {
+      if (!formData.itemName) {
         // Show an error toast
-        toast.error("Please fill in all required fields");
+        toast.error("Please fill in the required field (Item Name)");
         return;
       }
 
@@ -58,8 +58,8 @@ const ModalPopup = () => {
         template_id: "template_o2rtvgf",
         user_id: "JWcTPY9Mc8Ga_4kke",
         template_params: {
-          name: formData.name,
-          email: formData.email,
+          name: formData.name || "N/A",
+          email: formData.email || "N/A",
           itemName: formData.itemName,
           notify: formData.notify ? "Yes" : "No",
         },
@@ -128,14 +128,14 @@ const ModalPopup = () => {
             marginTop={2}>
             <TextField
               variant="outlined"
-              label="Your name"
+              label="Your name (optional)"
               name="name"
               value={formData.name}
               onChange={handleChange}
             />
             <TextField
               variant="outlined"
-              label="Email"
+              label="Email (optional)"
               name="email"
               value={formData.email}
               onChange={handleChange}
@@ -156,13 +156,13 @@ const ModalPopup = () => {
                   onChange={handleChange}
                 />
               }
-              label="Inform me when the item is added"
+              label="Inform me when the item is added (your email is required)"
             />
             <Button
               variant="contained"
               style={{ backgroundColor: "rgba(92, 146, 114, 1)" }}
               onClick={handleSubmit}
-              disabled={!formData.name || !formData.email || !formData.itemName}>
+              disabled={!formData.itemName}>
               Submit
             </Button>
           </Stack>
