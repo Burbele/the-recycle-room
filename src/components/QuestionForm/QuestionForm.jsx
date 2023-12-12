@@ -2,6 +2,8 @@ import { useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import PropTypes from "prop-types";
 import { ref, push, set } from "firebase/database"; // Import 'set' function
 import { db } from "./../../firebase-config";
+import { toast, ToastContainer } from "react-toastify";
+
 import {
   Button,
   Dialog,
@@ -63,8 +65,9 @@ const QuestionForm = forwardRef(({ onSubmit }, parentRef) => {
         question: formData.question,
       });
 
-      alert("Question submitted successfully!");
       onSubmit && onSubmit(formData);
+      toast.success("Question sent!");
+
       closePopup();
     } catch (error) {
       console.error("Error submitting question:", error);
@@ -124,6 +127,11 @@ const QuestionForm = forwardRef(({ onSubmit }, parentRef) => {
           </Stack>
         </DialogContent>
       </Dialog>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+      />
     </>
   );
 });
