@@ -84,6 +84,8 @@ const QuestionForm = forwardRef(({ onSubmit }, parentRef) => {
         username: formData.username || "Anonymous",
         question: formData.question,
         image: imageUrl, // Store the image URL
+        answerDisplay: "No answer yet",
+        answer: "N/A",
       });
 
       onSubmit && onSubmit(formData);
