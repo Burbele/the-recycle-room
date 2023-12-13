@@ -10,6 +10,12 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, remove } from "firebase/database";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Button from "@mui/material/Button";
 
 function FullQuestion() {
   const navigate = useNavigate();
@@ -17,6 +23,7 @@ function FullQuestion() {
   const [isLoginOpen, setLoginOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [isAnswerOpen, setAnswerOpen] = useState(false);
+  const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false); // new state
   const params = useParams();
 
   const [question, setQuestion] = useState({
@@ -91,7 +98,11 @@ function FullQuestion() {
     setLoginOpen(false);
   };
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
+    setDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
     try {
       const db = getDatabase();
       const questionRef = ref(db, `questions/${params.questionsId}`);
@@ -111,7 +122,13 @@ function FullQuestion() {
         autoClose: 3000,
         hideProgressBar: true,
       });
+    } finally {
+      setDeleteDialogOpen(false);
     }
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteDialogOpen(false);
   };
 
   return (
@@ -138,12 +155,10 @@ function FullQuestion() {
           <p className="answer-status-display">{question.answerDisplay}</p>
         </div>
         <div className="moderator-answer-block">
-          <div
-            className="answer-box"
-            onClick={handleLogin}>
+          <div className="answer-box">
             <div className="moderator-key">
               <p className="moderator-heading">Moderator reply</p>
-              {!user && <IoKeyOutline />}
+              {!user && <IoKeyOutline onClick={handleLogin} />}
             </div>
             <p className="italic-answer">{question.answer}</p>
           </div>
@@ -179,6 +194,28 @@ function FullQuestion() {
           onClose={handleLoginClose}
         />
       )}
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={isDeleteDialogOpen}
+        onClose={handleCancelDelete}>
+        <DialogTitle>Delete Confirmation</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Are you sure you want to delete this question?</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleCancelDelete}
+            style={{ color: "rgba(43, 36, 42, 1)" }}>
+            Cancel
+          </Button>
+          <Button
+            onClick={handleConfirmDelete}
+            style={{ color: "rgba(43, 36, 42, 1)" }}>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
