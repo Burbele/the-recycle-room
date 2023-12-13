@@ -15,7 +15,7 @@ const AccordionItem = ({ categoryImage, title, exampleyes, exampleno, isOpen, on
         <button
           className={`information-container ${isOpen ? "active" : ""}`}
           onClick={onClick}>
-          <div className="title-container">
+          <div className="accordion-title-container">
             {/* Category image */}
             <img
               className="category-image"

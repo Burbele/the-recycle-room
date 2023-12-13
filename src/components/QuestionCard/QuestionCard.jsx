@@ -1,4 +1,3 @@
-// QuestionCard.jsx
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ref, onValue } from "firebase/database";
@@ -8,14 +7,13 @@ import { FaArrowRight } from "react-icons/fa6";
 
 import "./QuestionCard.css";
 
-function QuestionCard({ searchValue }) {
+function QuestionCard({ searchValue, visibleQuestions }) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Modify openQuestion to accept question object
-  function openQuestion(question) {
-    navigate(`/questions/${question.id}`);
+  function openQuestion(questionId) {
+    navigate(`/questions/${questionId}`);
   }
 
   useEffect(() => {
@@ -46,20 +44,21 @@ function QuestionCard({ searchValue }) {
       )
     : questions;
 
+  // Display only the specified number of questions
+  const slicedQuestions = displayedQuestions.slice(0, visibleQuestions);
+
   return (
     <div>
-      {displayedQuestions.length === 0 ? (
+      {slicedQuestions.length === 0 ? (
         <p className="not-found">No matching questions found.</p>
       ) : (
-        displayedQuestions.map((question) => (
+        slicedQuestions.map((question) => (
           <div
             key={question.id}
             className="question-container">
             <article
               className="display-container"
-              onClick={() => openQuestion(question)}>
-              {" "}
-              {/* Pass the question object to openQuestion */}
+              onClick={() => openQuestion(question.id)}>
               <div className="title-container">
                 <p className="question-author">{question.username} asked a question</p>
                 <p className="question-title">
@@ -78,6 +77,7 @@ function QuestionCard({ searchValue }) {
 
 QuestionCard.propTypes = {
   searchValue: PropTypes.string,
+  visibleQuestions: PropTypes.number,
 };
 
 export default QuestionCard;

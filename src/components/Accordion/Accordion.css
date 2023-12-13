@@ -13,7 +13,7 @@
   border: none;
 }
 
-.title-container {
+.accordion-title-container {
   display: flex;
   flex-direction: row;
   align-items: center;

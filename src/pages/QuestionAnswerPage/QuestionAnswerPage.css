@@ -15,3 +15,16 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.load-more-container {
+  padding-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.load-more {
+  border: none;
+  background-color: var(--skarsnik-green);
+  color: var(--oatmeal);
+  padding: 0.5rem;
+}
