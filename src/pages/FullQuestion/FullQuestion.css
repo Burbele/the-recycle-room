@@ -1,0 +1,16 @@
+.header-display {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 1rem;
+}
+
+.header-display p {
+  font-size: 18px;
+}
+
+.arrow-back {
+  color: rgba(43, 36, 42, 1);
+  font-size: 1rem;
+}

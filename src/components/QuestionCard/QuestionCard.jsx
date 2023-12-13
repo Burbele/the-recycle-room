@@ -1,4 +1,5 @@
 // QuestionCard.jsx
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ref, onValue } from "firebase/database";
 import { db } from "./../../firebase-config";
@@ -10,6 +11,11 @@ import "./QuestionCard.css";
 function QuestionCard({ searchValue }) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  function openQuestion() {
+    navigate(`/question/${questions.id}`);
+  }
 
   useEffect(() => {
     const questionsRef = ref(db, "questions");
@@ -48,7 +54,9 @@ function QuestionCard({ searchValue }) {
           <div
             key={question.id}
             className="question-container">
-            <article className="display-container">
+            <article
+              className="display-container"
+              onClick={openQuestion}>
               <div className="title-container">
                 <p className="question-author">{question.username} asked a question</p>
                 <p className="question-title">
