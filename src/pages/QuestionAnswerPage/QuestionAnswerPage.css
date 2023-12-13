@@ -24,6 +24,7 @@
 
 .load-more {
   border: none;
+  border-radius: 8px;
   background-color: var(--skarsnik-green);
   color: var(--oatmeal);
   padding: 0.5rem;
