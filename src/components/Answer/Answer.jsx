@@ -21,6 +21,7 @@ const Answer = ({ isOpen, onClose, questionId }) => {
 
       await update(questionRef, {
         answer: answer,
+        answerDisplay: "Answered",
       });
 
       // You may add further logic or state updates after a successful submission
