@@ -1,4 +1,3 @@
-// FullQuestion.jsx
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
@@ -6,31 +5,32 @@ import "./FullQuestion.css";
 import { FaArrowLeft } from "react-icons/fa6";
 import { IoKeyOutline } from "react-icons/io5";
 import Login from "../../components/Login/Login";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function FullQuestion() {
   const navigate = useNavigate();
 
   const [isLoginOpen, setLoginOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
   const handleLogin = () => {
-    // Add your logic to open the login popup
     setLoginOpen(true);
   };
 
   const handleLoginClose = () => {
-    // Add your logic to close the login popup
     setLoginOpen(false);
   };
 
-  // Function to navigate back to the previous page
-  const goBack = () => {
-    navigate(-1); // This will navigate one page back
-  };
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
+      setUser(user);
+    });
 
-  // Get the question ID from the URL params
+    return () => unsubscribe();
+  }, []);
+
   const params = useParams();
 
-  // State for storing question data
   const [question, setQuestion] = useState({
     image: "",
     question: "",
@@ -40,13 +40,11 @@ function FullQuestion() {
   });
 
   useEffect(() => {
-    // Check if params.questionsId is a valid value
     if (!params.questionsId || params.questionsId === "undefined") {
       console.error("Question ID from URL is invalid");
       return;
     }
 
-    // Fetch question data from Firebase
     async function getQuestion() {
       try {
         const url = `https://recycle-item-app-default-rtdb.europe-west1.firebasedatabase.app/questions/${params.questionsId}.json`;
@@ -54,17 +52,15 @@ function FullQuestion() {
         const response = await fetch(url);
 
         if (!response.ok) {
-          // Handle non-successful response, e.g., show an error message
           console.error(`Error fetching question: ${response.status}`);
           return;
         }
 
         const questionData = await response.json();
 
-        // Check if questionData is defined and not empty
         if (questionData) {
           setQuestion({
-            image: questionData.image || "", // If "image" is undefined, set it to an empty string
+            image: questionData.image || "",
             question: questionData.question || "",
             username: questionData.username || "",
             answerDisplay: questionData.answerDisplay || "",
@@ -73,17 +69,13 @@ function FullQuestion() {
 
           console.log("Fetched questionData:", questionData);
         } else {
-          // Handle case where question data is not available
           console.error("Question data not found");
-          // You may want to set a state to indicate that the data is not available
         }
       } catch (error) {
-        // Handle fetch error
         console.error("Error fetching question:", error);
       }
     }
 
-    // Trigger the effect only when the URL changes (when params.questionsId changes)
     getQuestion();
   }, [params.questionsId]);
 
@@ -92,39 +84,44 @@ function FullQuestion() {
       <Header />
       <div
         className="header-display"
-        onClick={goBack}>
+        onClick={() => navigate(-1)}>
         <FaArrowLeft className="arrow-back" />
         <p>return to questions</p>
       </div>
 
       <div className="question-wrapper">
-        <div>
-          {question.image && (
-            <img
-              className="question-image-style"
-              src={question.image}
-              alt="Question Image"
-            />
-          )}
-          <div className="question-answer-padding">
-            <p className="username-display">{question.username} is asking</p>
-            <h2>{question.question}</h2>
-            <p className="answer-status-display">{question.answerDisplay}</p>
-          </div>
-          <div className="moderator-answer-block">
-            <div
-              className="answer-box"
-              onClick={handleLogin}>
-              <div className="moderator-key">
-                <p className="moderator-heading">Moderator reply</p>
-                <IoKeyOutline />
-              </div>
-              <p className="italic-answer">{question.answer}</p>
+        {question.image && (
+          <img
+            className="question-image-style"
+            src={question.image}
+            alt="Question Image"
+          />
+        )}
+        <div className="question-answer-padding">
+          <p className="username-display">{question.username} is asking</p>
+          <h2>{question.question}</h2>
+          <p className="answer-status-display">{question.answerDisplay}</p>
+        </div>
+        <div className="moderator-answer-block">
+          <div
+            className="answer-box"
+            onClick={handleLogin}>
+            <div className="moderator-key">
+              <p className="moderator-heading">Moderator reply</p>
+              <IoKeyOutline />
             </div>
+            <p className="italic-answer">{question.answer}</p>
           </div>
         </div>
       </div>
-      {/* Render the Login component */}
+
+      {user && (
+        <>
+          <button>Answer</button>
+          <button>Delete</button>
+        </>
+      )}
+
       {isLoginOpen && (
         <Login
           onLogin={handleLogin}
