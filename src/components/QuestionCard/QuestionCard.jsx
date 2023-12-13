@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ref, onValue } from "firebase/database";
 import { db } from "./../../firebase-config";
 import PropTypes from "prop-types";
+import { FaArrowRight } from "react-icons/fa6";
 
 import "./QuestionCard.css";
 
@@ -39,14 +40,13 @@ function QuestionCard({ searchValue }) {
         <div
           key={question.id}
           className="question-container">
-          <article>
-            <p className="question-author">
-              {question.username
-                ? `${question.username} asked a question`
-                : "Anonymous asked a question"}
-            </p>
-            <p className="question-title">{question.question}</p>
-            <p className="question-answer">{question.answerDisplay}</p>
+          <article className="display-container">
+            <div className="title-container">
+              <p className="question-author">{question.username} asked a question</p>
+              <p className="question-title">{question.question}</p>
+              <p className="question-answer">{question.answerDisplay}</p>
+            </div>
+            <FaArrowRight className="arrow-right" />
           </article>
         </div>
       ))}
