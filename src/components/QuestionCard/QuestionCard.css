@@ -37,3 +37,7 @@
 .arrow-right {
   color: rgba(43, 36, 42, 1);
 }
+
+.not-found {
+  margin-top: 1rem;
+}
