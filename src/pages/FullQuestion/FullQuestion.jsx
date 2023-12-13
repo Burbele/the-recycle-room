@@ -5,9 +5,22 @@ import Header from "../../components/Header/Header";
 import "./FullQuestion.css";
 import { FaArrowLeft } from "react-icons/fa6";
 import { IoKeyOutline } from "react-icons/io5";
+import Login from "../../components/Login/Login";
 
 function FullQuestion() {
   const navigate = useNavigate();
+
+  const [isLoginOpen, setLoginOpen] = useState(false);
+
+  const handleLogin = () => {
+    // Add your logic to open the login popup
+    setLoginOpen(true);
+  };
+
+  const handleLoginClose = () => {
+    // Add your logic to close the login popup
+    setLoginOpen(false);
+  };
 
   // Function to navigate back to the previous page
   const goBack = () => {
@@ -86,7 +99,7 @@ function FullQuestion() {
 
       <div className="question-wrapper">
         <div>
-          {question.image && ( // Check if question.image is not an empty string
+          {question.image && (
             <img
               className="question-image-style"
               src={question.image}
@@ -99,7 +112,9 @@ function FullQuestion() {
             <p className="answer-status-display">{question.answerDisplay}</p>
           </div>
           <div className="moderator-answer-block">
-            <div className="answer-box">
+            <div
+              className="answer-box"
+              onClick={handleLogin}>
               <div className="moderator-key">
                 <p className="moderator-heading">Moderator reply</p>
                 <IoKeyOutline />
@@ -109,6 +124,13 @@ function FullQuestion() {
           </div>
         </div>
       </div>
+      {/* Render the Login component */}
+      {isLoginOpen && (
+        <Login
+          onLogin={handleLogin}
+          onClose={handleLoginClose}
+        />
+      )}
     </div>
   );
 }

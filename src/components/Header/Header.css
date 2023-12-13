@@ -1,11 +1,16 @@
 .HeaderContainer {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  width: 100%;
+  justify-content: space-between;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  align-items: center;
 }
 
 .logo {
   width: 10rem;
+}
+.logout {
+  font-size: 2rem;
 }
