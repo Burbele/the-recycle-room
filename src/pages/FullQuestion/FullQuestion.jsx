@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import "./FullQuestion.css";
 import { FaArrowLeft } from "react-icons/fa6";
+import { IoKeyOutline } from "react-icons/io5";
 
 function FullQuestion() {
   const navigate = useNavigate();
@@ -99,7 +100,10 @@ function FullQuestion() {
           </div>
           <div className="moderator-answer-block">
             <div className="answer-box">
-              <p className="moderator-heading">Moderator reply</p>
+              <div className="moderator-key">
+                <p className="moderator-heading">Moderator reply</p>
+                <IoKeyOutline />
+              </div>
               <p className="italic-answer">{question.answer}</p>
             </div>
           </div>
