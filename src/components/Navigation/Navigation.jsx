@@ -10,19 +10,19 @@ export default function Navigation() {
         to="/"
         activeClassName="active-link"
         exact>
-        Item Search
+        Search
       </NavLink>
       {/* NavLink for navigating to the Recycling Information page */}
       <NavLink
         to="/recyclinginformation"
         activeClassName="active-link">
-        Information
+        Overview
       </NavLink>
       {/* NavLink for navigating to the Question & Answer page */}
       <NavLink
         to="/questionanswer"
         activeClassName="active-link">
-        Q&A
+        Questions
       </NavLink>
     </nav>
   );

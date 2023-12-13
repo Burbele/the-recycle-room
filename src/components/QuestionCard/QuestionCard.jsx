@@ -13,8 +13,9 @@ function QuestionCard({ searchValue }) {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  function openQuestion() {
-    navigate(`/question/${questions.id}`);
+  // Modify openQuestion to accept question object
+  function openQuestion(question) {
+    navigate(`/questions/${question.id}`);
   }
 
   useEffect(() => {
@@ -56,7 +57,9 @@ function QuestionCard({ searchValue }) {
             className="question-container">
             <article
               className="display-container"
-              onClick={openQuestion}>
+              onClick={() => openQuestion(question)}>
+              {" "}
+              {/* Pass the question object to openQuestion */}
               <div className="title-container">
                 <p className="question-author">{question.username} asked a question</p>
                 <p className="question-title">
@@ -74,7 +77,7 @@ function QuestionCard({ searchValue }) {
 }
 
 QuestionCard.propTypes = {
-  searchValue: PropTypes.string, // Add this line for searchValue prop
+  searchValue: PropTypes.string,
 };
 
 export default QuestionCard;

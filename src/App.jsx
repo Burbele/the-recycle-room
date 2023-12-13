@@ -25,7 +25,7 @@ function App() {
             element={<QuestionAnswerPage />}
           />
           <Route
-            path="/question/:questionsId"
+            path="/questions/:questionsId"
             element={<FullQuestion />}
           />
 
