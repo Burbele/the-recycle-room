@@ -25,25 +25,28 @@ function QuestionAnswerPage() {
         <Header />
         <h1>Ask your question</h1>
         <p>We will provide you with more specific information about recycling.</p>
-        <button
-          className="ask"
-          onClick={handleAskQuestion}>
-          Ask a question
-        </button>
+
+        <div className="add-search-container">
+          <button
+            className="ask"
+            onClick={handleAskQuestion}>
+            Ask a question
+          </button>
+
+          {/* Pass search value and setSearchValue to QuestionSearchBar */}
+          <QuestionSearchBar
+            placeholder="Search questions"
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
+        </div>
 
         <QuestionForm
           ref={questionFormRef}
           onSubmit={handleFormSubmit}
         />
 
-        {/* Step 2: Pass search value and setSearchValue to QuestionSearchBar */}
-        <QuestionSearchBar
-          placeholder="Search questions"
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-        />
-
-        {/* Step 3: Pass searchValue to QuestionCard */}
+        {/* Pass searchValue to QuestionCard */}
         <QuestionCard searchValue={searchValue} />
       </div>
     </>

@@ -1,8 +1,17 @@
 .ask {
-  margin-top: 1rem;
   padding: 10px 20px;
+  height: 2.5rem;
+
   border-radius: 8px;
   border: none;
   background: var(--skarsnik-green);
   color: var(--oatmeal);
+}
+
+.add-search-container {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

@@ -46,7 +46,7 @@ function QuestionCard({ searchValue }) {
                 : "Anonymous asked a question"}
             </p>
             <p className="question-title">{question.question}</p>
-            <p className="question-answer">{question.answer}</p>
+            <p className="question-answer">{question.answerDisplay}</p>
           </article>
         </div>
       ))}
