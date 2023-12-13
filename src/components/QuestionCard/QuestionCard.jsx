@@ -26,12 +26,14 @@ function QuestionCard({ searchValue, visibleQuestions }) {
           id: key,
           ...value,
         }));
-        setQuestions(questionsArray);
+        // Limit the number of questions based on visibleQuestions
+        const limitedQuestions = questionsArray.slice(0, visibleQuestions);
+        setQuestions(limitedQuestions);
       } else {
         console.log("No questions found");
       }
     });
-  }, []);
+  }, [visibleQuestions]); // Trigger useEffect when visibleQuestions changes
 
   if (loading) {
     return <p>Loading...</p>;
@@ -44,15 +46,12 @@ function QuestionCard({ searchValue, visibleQuestions }) {
       )
     : questions;
 
-  // Display only the specified number of questions
-  const slicedQuestions = displayedQuestions.slice(0, visibleQuestions);
-
   return (
     <div>
-      {slicedQuestions.length === 0 ? (
+      {displayedQuestions.length === 0 ? (
         <p className="not-found">No matching questions found.</p>
       ) : (
-        slicedQuestions.map((question) => (
+        displayedQuestions.map((question) => (
           <div
             key={question.id}
             className="question-container">

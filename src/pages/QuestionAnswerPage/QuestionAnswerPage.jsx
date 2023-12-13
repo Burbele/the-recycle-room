@@ -23,8 +23,10 @@ function QuestionAnswerPage() {
   };
 
   const handleLoadMore = () => {
-    // Increase the number of visible questions by 5
-    setVisibleQuestions((prevVisibleQuestions) => prevVisibleQuestions + 5);
+    // Increase the number of visible questions by 5, but not more than the total number of questions
+    setVisibleQuestions((prevVisibleQuestions) =>
+      Math.min(prevVisibleQuestions + 5, totalQuestions)
+    );
   };
 
   const handleSearch = (value) => {
@@ -75,7 +77,9 @@ function QuestionAnswerPage() {
           <div className="load-more-container">
             <button
               className="load-more"
-              onClick={handleLoadMore}>
+              onClick={handleLoadMore}
+              // Disable the button when there are no more questions to load
+              disabled={totalQuestions <= visibleQuestions}>
               Load more
             </button>
           </div>
