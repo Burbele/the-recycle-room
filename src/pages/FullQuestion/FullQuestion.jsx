@@ -143,7 +143,7 @@ function FullQuestion() {
             onClick={handleLogin}>
             <div className="moderator-key">
               <p className="moderator-heading">Moderator reply</p>
-              <IoKeyOutline />
+              {!user && <IoKeyOutline />}
             </div>
             <p className="italic-answer">{question.answer}</p>
           </div>
@@ -151,10 +151,18 @@ function FullQuestion() {
       </div>
 
       {user && (
-        <>
-          <button onClick={handleAnswerOpen}>Answer</button>
-          <button onClick={handleDelete}>Delete</button>
-        </>
+        <div className="button-moderator">
+          <button
+            className="button-answer"
+            onClick={handleAnswerOpen}>
+            Answer
+          </button>
+          <button
+            className="button-delete"
+            onClick={handleDelete}>
+            Delete
+          </button>
+        </div>
       )}
 
       {isAnswerOpen && (
