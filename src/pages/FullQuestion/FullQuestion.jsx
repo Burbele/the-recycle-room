@@ -5,6 +5,7 @@ import "./FullQuestion.css";
 import { FaArrowLeft } from "react-icons/fa6";
 import { IoKeyOutline } from "react-icons/io5";
 import Login from "../../components/Login/Login";
+import Answer from "../../components/Answer/Answer"; // Import the Answer component
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function FullQuestion() {
@@ -12,6 +13,16 @@ function FullQuestion() {
 
   const [isLoginOpen, setLoginOpen] = useState(false);
   const [user, setUser] = useState(null);
+
+  const [isAnswerOpen, setAnswerOpen] = useState(false);
+
+  const handleAnswerOpen = () => {
+    setAnswerOpen(true);
+  };
+
+  const handleAnswerClose = () => {
+    setAnswerOpen(false);
+  };
 
   const handleLogin = () => {
     setLoginOpen(true);
@@ -117,9 +128,17 @@ function FullQuestion() {
 
       {user && (
         <>
-          <button>Answer</button>
+          <button onClick={handleAnswerOpen}>Answer</button>
           <button>Delete</button>
         </>
+      )}
+
+      {isAnswerOpen && (
+        <Answer
+          isOpen={isAnswerOpen}
+          onClose={handleAnswerClose}
+          questionId={params.questionsId}
+        />
       )}
 
       {isLoginOpen && (
