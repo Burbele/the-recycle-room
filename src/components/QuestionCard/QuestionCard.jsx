@@ -51,7 +51,9 @@ function QuestionCard({ searchValue }) {
             <article className="display-container">
               <div className="title-container">
                 <p className="question-author">{question.username} asked a question</p>
-                <p className="question-title">{question.question}</p>
+                <p className="question-title">
+                  {question.question.charAt(0).toUpperCase() + question.question.slice(1)}
+                </p>
                 <p className="question-answer">{question.answerDisplay}</p>
               </div>
               <FaArrowRight className="arrow-right" />
