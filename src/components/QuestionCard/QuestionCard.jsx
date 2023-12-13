@@ -7,7 +7,7 @@ import { FaArrowRight } from "react-icons/fa6";
 
 import "./QuestionCard.css";
 
-function QuestionCard({ searchValue, visibleQuestions }) {
+function QuestionCard({ searchValue, visibleQuestions, keyProp }) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ function QuestionCard({ searchValue, visibleQuestions }) {
     : questions;
 
   return (
-    <div>
+    <div key={keyProp}>
       {displayedQuestions.length === 0 ? (
         <p className="not-found">No matching questions found.</p>
       ) : (
@@ -77,6 +77,7 @@ function QuestionCard({ searchValue, visibleQuestions }) {
 QuestionCard.propTypes = {
   searchValue: PropTypes.string,
   visibleQuestions: PropTypes.number,
+  keyProp: PropTypes.number,
 };
 
 export default QuestionCard;

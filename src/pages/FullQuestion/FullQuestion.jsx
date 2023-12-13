@@ -5,41 +5,18 @@ import "./FullQuestion.css";
 import { FaArrowLeft } from "react-icons/fa6";
 import { IoKeyOutline } from "react-icons/io5";
 import Login from "../../components/Login/Login";
-import Answer from "../../components/Answer/Answer"; // Import the Answer component
+import Answer from "../../components/Answer/Answer";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDatabase, ref, remove } from "firebase/database";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function FullQuestion() {
   const navigate = useNavigate();
 
   const [isLoginOpen, setLoginOpen] = useState(false);
   const [user, setUser] = useState(null);
-
   const [isAnswerOpen, setAnswerOpen] = useState(false);
-
-  const handleAnswerOpen = () => {
-    setAnswerOpen(true);
-  };
-
-  const handleAnswerClose = () => {
-    setAnswerOpen(false);
-  };
-
-  const handleLogin = () => {
-    setLoginOpen(true);
-  };
-
-  const handleLoginClose = () => {
-    setLoginOpen(false);
-  };
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
-      setUser(user);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
   const params = useParams();
 
   const [question, setQuestion] = useState({
@@ -49,6 +26,14 @@ function FullQuestion() {
     answerDisplay: "",
     answer: "",
   });
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
+      setUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     if (!params.questionsId || params.questionsId === "undefined") {
@@ -90,6 +75,45 @@ function FullQuestion() {
     getQuestion();
   }, [params.questionsId]);
 
+  const handleAnswerOpen = () => {
+    setAnswerOpen(true);
+  };
+
+  const handleAnswerClose = () => {
+    setAnswerOpen(false);
+  };
+
+  const handleLogin = () => {
+    setLoginOpen(true);
+  };
+
+  const handleLoginClose = () => {
+    setLoginOpen(false);
+  };
+
+  const handleDelete = async () => {
+    try {
+      const db = getDatabase();
+      const questionRef = ref(db, `questions/${params.questionsId}`);
+      await remove(questionRef);
+      navigate(-1);
+      // Show success toast
+      toast.success("Question deleted", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
+    } catch (error) {
+      console.error("Error deleting question:", error);
+      // Show error toast
+      toast.error("Error deleting question", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
+    }
+  };
+
   return (
     <div className="page">
       <Header />
@@ -129,7 +153,7 @@ function FullQuestion() {
       {user && (
         <>
           <button onClick={handleAnswerOpen}>Answer</button>
-          <button>Delete</button>
+          <button onClick={handleDelete}>Delete</button>
         </>
       )}
 

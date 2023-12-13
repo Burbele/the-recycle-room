@@ -24,9 +24,8 @@ function QuestionAnswerPage() {
 
   const handleLoadMore = () => {
     // Increase the number of visible questions by 5, but not more than the total number of questions
-    setVisibleQuestions((prevVisibleQuestions) =>
-      Math.min(prevVisibleQuestions + 5, totalQuestions)
-    );
+    const newVisibleQuestions = Math.min(visibleQuestions + 5, totalQuestions);
+    setVisibleQuestions(newVisibleQuestions);
   };
 
   const handleSearch = (value) => {
@@ -37,7 +36,7 @@ function QuestionAnswerPage() {
   useEffect(() => {
     // Replace this example with your actual logic to fetch the total number of questions
     // For demonstration purposes, setting a placeholder total number of questions
-    const placeholderTotalQuestions = 20;
+    const placeholderTotalQuestions = 10; // Set it to a value greater than visibleQuestions
     setTotalQuestions(placeholderTotalQuestions);
   }, []);
 
@@ -72,7 +71,6 @@ function QuestionAnswerPage() {
           visibleQuestions={visibleQuestions}
         />
 
-        {/* Conditionally render "Load more" button based on isSearching state */}
         {totalQuestions > visibleQuestions && !isSearching && (
           <div className="load-more-container">
             <button
