@@ -13,6 +13,7 @@
 .question-title {
   font-size: var(--body-text-size);
   font-weight: var(--font-weight-bold);
+  width: 97%;
 }
 
 .question-answer {
