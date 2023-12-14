@@ -61,8 +61,8 @@ function QuestionCard({ searchValue, visibleQuestions, keyProp }) {
               <div className="title-container">
                 <p className="question-author">{question.username} asked a question</p>
                 <p className="question-title">
-                  {question.question.length > 75
-                    ? question.question.slice(0, 75) + "..."
+                  {question.question.length > 95
+                    ? question.question.slice(0, 95).replace(/^(.{1,95})\s.*$/, "$1") + "..."
                     : question.question.charAt(0).toUpperCase() + question.question.slice(1)}
                 </p>
                 <p className="question-answer">{question.answerDisplay}</p>
