@@ -1,18 +1,42 @@
-# React + Vite
+# The Recycle Room
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![The Recycle Room Logo](./src/assets/logo.png)
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Recycle Room is a web app developed as part of the Go Green Project for the 3rd semester at Business Academy Aarhus. It is designed to help users learn and contribute to recycling efforts for various items. The project encourages sustainable practices by providing information on recycling categories, offering step-by-step instructions, and creating a community-driven Q&A forum.
 
-npm i react-icons
+## Features
 
-npm install @mui/material @emotion/react @emotion/styled
+- **Item Search:** Users can search for any item to learn how to recycle it.
+- **Category Information:** General information about recycling categories and examples of recyclable and non-recyclable items.
+- **Q&A Forum:** Users can ask questions about recycling, and moderators can provide answers and manage the forum.
 
-npm i @mui/icons-material
+## Technologies Used
 
-npm install react-toastify
+- React
+- React Router
+- Firebase
+- Material-UI
+- React Icons
+- React Spinners
+- React Toastify
+- UUID
 
-npm install uuid
+## Prerequisites
+
+Make sure you have Node.js and npm installed on your machine.
+
+## Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/the-recycle-room.git
+
+# Install dependencies
+cd the-recycle-room
+npm install
+
+# Start the development server
+npm dev
+```
