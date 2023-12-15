@@ -27,11 +27,15 @@ The Recycle Room is a web app developed as part of the Go Green Project for the 
 
 Make sure you have Node.js and npm installed on your machine.
 
+## Demo
+
+http://the-recycling-room.rbcreations.dk/ - **MOBILE VIEW ONLY**
+
 ## Getting Started
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/the-recycle-room.git
+git clone https://github.com/Burbele/the-recycle-room.git
 
 # Install dependencies
 cd the-recycle-room
