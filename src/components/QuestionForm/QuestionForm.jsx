@@ -18,16 +18,19 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 
 const QuestionForm = forwardRef(({ onSubmit }, parentRef) => {
+  // State for managing the visibility of the form popup
   const [open, setOpen] = useState(false);
+
+  // State for storing form data (username, question, image)
   const [formData, setFormData] = useState({
     username: "",
     question: "",
     image: null,
   });
 
+  // Effect to reset form data when the popup is opened
   useEffect(() => {
     if (open) {
-      // Reset form data when the dialog opens
       setFormData({
         username: "",
         question: "",
@@ -36,26 +39,29 @@ const QuestionForm = forwardRef(({ onSubmit }, parentRef) => {
     }
   }, [open]);
 
+  // Function to open the form popup
   const openPopup = () => {
     setOpen(true);
   };
 
+  // Function to close the form popup
   const closePopup = () => {
     setOpen(false);
   };
 
+  // Function to handle form input changes
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
     if (name === "image") {
-      // Handle image file
+      // Handle image file selection
       const imageFile = files[0];
       setFormData((prevData) => ({
         ...prevData,
         image: imageFile,
       }));
     } else {
-      // Handle other input fields
+      // Handle text input changes
       setFormData((prevData) => ({
         ...prevData,
         [name]: value,
@@ -63,53 +69,63 @@ const QuestionForm = forwardRef(({ onSubmit }, parentRef) => {
     }
   };
 
+  // Function to handle form submission
   const handleSubmit = async () => {
     try {
       if (!formData.question) {
+        // Alert if the question field is empty
         alert("Please fill in the required field (Question)");
         return;
       }
 
+      // Database reference for questions
       const questionsRef = ref(db, "questions");
       const newQuestionRef = push(questionsRef);
 
-      // Upload image to Firebase Storage if an image is selected
+      // Upload image (if provided) and get the image URL
       let imageUrl = null;
       if (formData.image) {
         imageUrl = await uploadImage(formData.image);
       }
 
-      // Use the 'set' function to set data in the newQuestionRef
+      // Save the question data to the database
       await set(newQuestionRef, {
         username: formData.username || "Anonymous",
         question: formData.question,
-        image: imageUrl, // Store the image URL
+        image: imageUrl,
         answerDisplay: "No answer yet",
         answer: "Waiting for reply",
       });
 
+      // Callback function for onSubmit prop
       onSubmit && onSubmit(formData);
+
+      // Show success toast
       toast.success("Question sent!");
 
+      // Close the form popup
       closePopup();
     } catch (error) {
       console.error("Error submitting question:", error);
+      // Show an alert if there is an error
       alert("Error submitting question. Check the console for details.");
     }
   };
 
+  // Function to upload an image to Firebase Storage
   const uploadImage = async (imageFile) => {
     try {
-      //url to new image - make sure to have the correct firebase project id
+      // URL for Firebase Storage
       const url = `https://firebasestorage.googleapis.com/v0/b/recycle-item-app.appspot.com/o/Questions%2F${imageFile.name}`;
 
-      // POST request to upload image
+      // Upload the image file using the fetch API
       const response = await fetch(url, {
         method: "POST",
         body: imageFile,
         headers: { "Content-Type": imageFile.type },
       });
 
+      // Check if the upload was successful
       if (response.ok) {
         const data = await response.json();
         console.log("Image upload successful:", data);
@@ -122,27 +138,29 @@ const QuestionForm = forwardRef(({ onSubmit }, parentRef) => {
           response.statusText
         );
         console.log(url);
-        return null; // Return null or handle the error as needed
+        return null;
       }
     } catch (error) {
       console.error("An error occurred during image upload:", error);
-      return null; // Return null or handle the error as needed
+      return null;
     }
   };
 
-  // Exposing the openPopup function through the ref
+  // Expose the openPopup function to the parent component
   useImperativeHandle(parentRef, () => ({
     openPopup,
   }));
 
   return (
     <>
+      {/* Form popup dialog */}
       <Dialog
         open={open}
         onClose={closePopup}
         fullWidth>
         <DialogTitle>
           Need more information?
+          {/* Close button */}
           <IconButton
             onClick={closePopup}
             style={{ float: "right" }}>
@@ -153,6 +171,7 @@ const QuestionForm = forwardRef(({ onSubmit }, parentRef) => {
           <DialogContentText>
             Ask a question to our specialist, and we will answer you within 48 hours!
           </DialogContentText>
+          {/* Form inputs */}
           <Stack
             spacing={2}
             marginTop={2}>
@@ -178,6 +197,7 @@ const QuestionForm = forwardRef(({ onSubmit }, parentRef) => {
               onChange={handleChange}
               accept="image/*"
             />
+            {/* Submit button */}
             <Button
               variant="contained"
               style={{ backgroundColor: "rgba(92, 146, 114, 1)" }}
@@ -188,6 +208,7 @@ const QuestionForm = forwardRef(({ onSubmit }, parentRef) => {
           </Stack>
         </DialogContent>
       </Dialog>
+      {/* Toast container for displaying success messages */}
       <ToastContainer
         position="top-center"
         autoClose={2000}

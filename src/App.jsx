@@ -10,8 +10,10 @@ import QuestionAnswerPage from "./pages/QuestionAnswerPage/QuestionAnswerPage";
 import FullQuestion from "./pages/FullQuestion/FullQuestion";
 
 function App() {
+  // State to manage the loading state
   const [loading, setLoading] = useState(false);
 
+  // Simulate loading by setting loading to true and then false after a delay
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
@@ -22,6 +24,7 @@ function App() {
   return (
     <>
       {loading ? (
+        // Render a loading spinner while the app is loading
         <div
           style={{
             textAlign: "center",
@@ -39,6 +42,7 @@ function App() {
           />
         </div>
       ) : (
+        // Render the main content of the app when not loading
         <>
           <Navigation />
           <main>

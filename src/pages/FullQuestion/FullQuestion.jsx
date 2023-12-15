@@ -20,12 +20,22 @@ import Button from "@mui/material/Button";
 function FullQuestion() {
   const navigate = useNavigate();
 
+  // State for handling login modal visibility
   const [isLoginOpen, setLoginOpen] = useState(false);
-  const [user, setUser] = useState(null);
+
+  // State for handling answer modal visibility
   const [isAnswerOpen, setAnswerOpen] = useState(false);
-  const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false); // new state
+
+  // State for handling delete confirmation dialog visibility
+  const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+  // Get parameters from the URL
   const params = useParams();
 
+  // State for managing user authentication
+  const [user, setUser] = useState(null);
+
+  // State for storing question data
   const [question, setQuestion] = useState({
     image: "",
     question: "",
@@ -34,6 +44,7 @@ function FullQuestion() {
     answer: "",
   });
 
+  // Check user authentication status on component mount
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
       setUser(user);
@@ -42,6 +53,7 @@ function FullQuestion() {
     return () => unsubscribe();
   }, []);
 
+  // Fetch and set question data based on the ID from the URL
   useEffect(() => {
     if (!params.questionsId || params.questionsId === "undefined") {
       console.error("Question ID from URL is invalid");
@@ -82,26 +94,32 @@ function FullQuestion() {
     getQuestion();
   }, [params.questionsId]);
 
+  // Open the answer modal
   const handleAnswerOpen = () => {
     setAnswerOpen(true);
   };
 
+  // Close the answer modal
   const handleAnswerClose = () => {
     setAnswerOpen(false);
   };
 
+  // Open the login modal
   const handleLogin = () => {
     setLoginOpen(true);
   };
 
+  // Close the login modal
   const handleLoginClose = () => {
     setLoginOpen(false);
   };
 
+  // Open the delete confirmation dialog
   const handleDelete = () => {
     setDeleteDialogOpen(true);
   };
 
+  // Confirm and delete the question
   const handleConfirmDelete = async () => {
     try {
       const db = getDatabase();
@@ -127,13 +145,17 @@ function FullQuestion() {
     }
   };
 
+  // Cancel the delete action and close the dialog
   const handleCancelDelete = () => {
     setDeleteDialogOpen(false);
   };
 
   return (
     <div className="page">
+      {/* Header component */}
       <Header />
+
+      {/* Header display for returning to questions */}
       <div
         className="header-display"
         onClick={() => navigate(-1)}>
@@ -142,6 +164,7 @@ function FullQuestion() {
       </div>
 
       <div className="question-wrapper">
+        {/* Display question image if available */}
         {question.image && (
           <img
             className="question-image-style"
@@ -154,6 +177,7 @@ function FullQuestion() {
           <h2>{question.question}</h2>
           <p className="answer-status-display">{question.answerDisplay}</p>
         </div>
+        {/* Display moderator answer block */}
         <div className="moderator-answer-block">
           <div className="answer-box">
             <div className="moderator-key">
@@ -165,6 +189,7 @@ function FullQuestion() {
         </div>
       </div>
 
+      {/* Buttons for authenticated users */}
       {user && (
         <div className="button-moderator">
           <button
@@ -180,6 +205,7 @@ function FullQuestion() {
         </div>
       )}
 
+      {/* Render Answer component when answer modal is open */}
       {isAnswerOpen && (
         <Answer
           isOpen={isAnswerOpen}
@@ -188,6 +214,7 @@ function FullQuestion() {
         />
       )}
 
+      {/* Render Login component when login modal is open */}
       {isLoginOpen && (
         <Login
           onLogin={handleLogin}
@@ -195,7 +222,7 @@ function FullQuestion() {
         />
       )}
 
-      {/* Delete Confirmation Dialog */}
+      {/* Delete confirmation dialog */}
       <Dialog
         open={isDeleteDialogOpen}
         onClose={handleCancelDelete}>
